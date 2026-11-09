@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>2027放假安排与拼假规划器 - 请N休M · 年假天数 · 未休年假200%</title>
+  <meta name="description" content="免费2027年放假安排一览与拼假规划器：按国办发明电〔2026〕10号展示元旦春节清明劳动节端午中秋国庆；输入剩余年假粗算请N休M；工龄算法定年假；未休年假另补200%/合计300%粗算。非官方，仅供参考。" />
+  <meta name="keywords" content="2027放假安排,拼假,请N休M,年假计算器,带薪年休假,未休年假,调休,国庆拼假,春节拼假" />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://pinjia.hpn6.com/" />
+  <meta property="og:title" content="2027放假安排与拼假规划器" />
+  <meta property="og:description" content="国办放假安排转述 + 拼假请N休M + 法定年假与未休年假报酬粗算。非官方，仅供参考。" />
+  <meta property="og:url" content="https://pinjia.hpn6.com/" />
+  <meta property="og:type" content="website" />
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2118305643241262" crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --text: #1a2332;
+      --muted: #5a6a7a;
+      --border: #e2e8f0;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --accent: #0d9488;
+      --warn: #b45309;
+      --good: #047857;
+      --bad: #b91c1c;
+      --holiday: #dc2626;
+      --makeup: #d97706;
+      --shadow: 0 8px 24px rgba(26, 35, 50, 0.08);
+      --radius: 14px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background: linear-gradient(180deg, #eef3ff 0%, var(--bg) 220px);
+      color: var(--text);
+      line-height: 1.55;
+    }
+    .wrap { max-width: 920px; margin: 0 auto; padding: 20px 16px 48px; }
+    header.hero { margin-bottom: 14px; }
+    header.hero h1 {
+      font-size: clamp(1.35rem, 4vw, 1.85rem);
+      margin: 0 0 8px;
+      letter-spacing: -0.02em;
+    }
+    header.hero p.lead { margin: 0; color: var(--muted); font-size: 0.98rem; }
+    .disclaimer {
+      margin: 12px 0 0;
+      padding: 10px 12px;
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      border-radius: 10px;
+      color: var(--warn);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    .disclaimer a { color: var(--warn); }
+    .stats-bar {
+      display: flex; flex-wrap: wrap; gap: 10px;
+      margin: 14px 0 18px; font-size: 0.85rem; color: var(--muted);
+    }
+    .stats-bar span {
+      background: #fff; border: 1px solid var(--border);
+      border-radius: 999px; padding: 4px 12px;
+    }
+    .stats-bar strong { color: var(--text); }
+    .toc {
+      display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 16px;
+    }
+    .toc a {
+      font-size: 0.86rem; color: var(--primary); text-decoration: none;
+      background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 999px;
+      padding: 6px 12px;
+    }
+    .toc a:hover { background: #dbeafe; }
+    .card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); box-shadow: var(--shadow);
+      padding: 18px 18px 16px; margin-bottom: 16px;
+    }
+    .card h2 { margin: 0 0 12px; font-size: 1.08rem; }
+    .card h3 { margin: 14px 0 8px; font-size: 0.95rem; color: var(--muted); font-weight: 600; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px 14px;
+    }
+    .field label {
+      display: block; font-size: 0.86rem; color: var(--muted); margin-bottom: 4px;
+    }
+    .field input, .field select {
+      width: 100%; padding: 10px 12px; border: 1px solid var(--border);
+      border-radius: 10px; font-size: 1rem; background: #fff; color: var(--text);
+    }
+    .field input:focus, .field select:focus {
+      outline: 2px solid rgba(37, 99, 235, 0.25); border-color: var(--primary);
+    }
+    .field .hint { font-size: 0.78rem; color: var(--muted); margin-top: 4px; }
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+    button {
+      appearance: none; border: none; border-radius: 10px;
+      padding: 11px 16px; font-size: 0.95rem; cursor: pointer; font-weight: 600;
+    }
+    button.primary { background: var(--primary); color: #fff; flex: 1; min-width: 140px; }
+    button.primary:hover { background: var(--primary-hover); }
+    button.ghost { background: #f1f5f9; color: var(--text); }
+    button.ghost:hover { background: #e2e8f0; }
+    .holiday-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 12px;
+    }
+    .hcard {
+      border: 1px solid var(--border); border-radius: 12px;
+      padding: 14px; background: #fafbfd; position: relative; overflow: hidden;
+    }
+    .hcard::before {
+      content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+      background: var(--holiday);
+    }
+    .hcard .name { font-size: 1.05rem; font-weight: 700; margin: 0 0 6px; }
+    .hcard .range { font-size: 0.92rem; margin: 0 0 4px; }
+    .hcard .days {
+      display: inline-block; margin: 6px 0;
+      background: #fef2f2; color: var(--holiday); font-weight: 700;
+      font-size: 0.85rem; padding: 2px 10px; border-radius: 999px;
+    }
+    .hcard .makeup {
+      font-size: 0.84rem; color: var(--makeup); margin: 6px 0 0;
+    }
+    .hcard .note { font-size: 0.8rem; color: var(--muted); margin: 6px 0 0; }
+    .plan-list { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
+    .plan-item {
+      border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px;
+      background: #f8fafc;
+    }
+    .plan-item .top {
+      display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 12px;
+      justify-content: space-between;
+    }
+    .plan-item .name { font-weight: 700; font-size: 1rem; }
+    .plan-item .badge {
+      background: linear-gradient(135deg, #ecfdf5, #f0f9ff);
+      border: 1px solid #bbf7d0; color: var(--good);
+      font-weight: 800; font-size: 0.95rem;
+      padding: 4px 10px; border-radius: 8px;
+    }
+    .plan-item .detail { font-size: 0.88rem; color: var(--muted); margin-top: 6px; }
+    .plan-item .dates { font-size: 0.86rem; margin-top: 4px; color: var(--text); }
+    .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-top: 12px; }
+    .metric {
+      background: #f8fafc; border: 1px solid var(--border);
+      border-radius: 12px; padding: 12px;
+    }
+    .metric .k { display: block; font-size: 0.8rem; color: var(--muted); margin-bottom: 4px; }
+    .metric .v { font-size: 1.15rem; font-weight: 700; letter-spacing: -0.02em; }
+    .metric .v.good { color: var(--good); }
+    .highlight {
+      margin-top: 12px; padding: 14px; border-radius: 12px;
+      background: linear-gradient(135deg, #ecfdf5, #f0f9ff);
+      border: 1px solid #bbf7d0;
+    }
+    .highlight .sub { font-size: 0.85rem; color: var(--muted); }
+    .highlight .big { font-size: 1.45rem; font-weight: 800; color: var(--good); margin: 4px 0; }
+    .note { font-size: 0.88rem; color: var(--muted); margin: 12px 0 0; }
+    .result-disclaimer {
+      margin-top: 14px; padding: 10px 12px;
+      background: #fff7ed; border: 1px solid #fed7aa; border-radius: 10px;
+      color: var(--warn); font-size: 0.9rem; font-weight: 600;
+    }
+    details.faq { border-top: 1px solid var(--border); padding: 10px 0; }
+    details.faq:first-of-type { border-top: none; }
+    details.faq summary { cursor: pointer; font-weight: 600; }
+    details.faq p { margin: 8px 0 0; color: var(--muted); font-size: 0.92rem; }
+    .source-box {
+      font-size: 0.88rem; color: var(--muted); padding: 10px 12px;
+      background: #f8fafc; border: 1px dashed var(--border); border-radius: 10px;
+    }
+    .source-box a { color: var(--primary); }
+    .legend {
+      display: flex; flex-wrap: wrap; gap: 10px; font-size: 0.82rem; color: var(--muted);
+      margin: 0 0 12px;
+    }
+    .legend i {
+      display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 4px;
+    }
+    .legend .l-h { background: var(--holiday); }
+    .legend .l-m { background: var(--makeup); }
+    footer {
+      margin-top: 8px; text-align: center; color: var(--muted); font-size: 0.82rem; line-height: 1.7;
+    }
+    footer .foot-warn {
+      margin: 0 0 8px; padding: 10px 12px;
+      background: #fff7ed; border: 1px solid #fed7aa; border-radius: 10px;
+      color: var(--warn); font-weight: 600; font-size: 0.88rem; text-align: left;
+    }
+    footer .site-nav { margin: 8px 0; }
+    footer .site-nav a { color: var(--muted); text-decoration: none; margin: 0 2px; }
+    footer .site-nav a:hover { color: var(--primary); text-decoration: underline; }
+    footer .xlinks { margin-top: 6px; font-size: 0.8rem; }
+    footer .xlinks a { color: var(--muted); margin: 0 4px; }
+    .seg {
+      display: inline-flex; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-top: 4px;
+    }
+    .seg button {
+      border-radius: 0; background: #fff; color: var(--muted); font-weight: 500; padding: 8px 12px; font-size: 0.88rem;
+    }
+    .seg button.active { background: #eff6ff; color: var(--primary); font-weight: 700; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <h1>2027放假安排与拼假规划器</h1>
+      <p class="lead">国办放假一览 · 请 N 休 M 拼假 · 法定年假天数 · 未休年假应补 200% 粗算</p>
+      <p class="disclaimer">
+        本站<strong>非</strong>国务院 / 人社部官方网站。放假安排转述自国办发明电〔2026〕10号；年假与加班/未休报酬以《职工带薪年休假条例》《劳动法》及单位制度为准，测算仅供参考。
+        原文：<a href="https://www.gov.cn/zhengce/content/202611/content_7085101.htm" rel="noopener noreferrer" target="_blank">中国政府网通知</a>
+      </p>
+    </header>
+
+    <div class="stats-bar" aria-live="polite">
+      <span>测算次数 <strong id="statDone">0</strong></span>
+      <span>数据源 <strong>国办发明电〔2026〕10号</strong></span>
+    </div>
+
+    <nav class="toc" aria-label="本页目录">
+      <a href="#holidays">假日一览</a>
+      <a href="#pinjia">拼假请N休M</a>
+      <a href="#annual">法定年假</a>
+      <a href="#unused">未休年假200%</a>
+      <a href="#faq">常见问题</a>
+    </nav>
+
+    <section class="card" id="holidays">
+      <h2>2027 年放假安排一览</h2>
+      <p class="legend">
+        <span><i class="l-h"></i>法定放假</span>
+        <span><i class="l-m"></i>调休上班</span>
+      </p>
+      <div class="holiday-grid" id="holidayCards"></div>
+      <p class="source-box" style="margin-top:14px">
+        来源：国务院办公厅关于 2027 年部分节假日安排的通知（国办发明电〔2026〕10号），中国政府网 2026-11-05 发布。
+        <a href="https://www.gov.cn/zhengce/content/202611/content_7085101.htm" rel="noopener noreferrer" target="_blank">查看原文</a>
+      </p>
+    </section>
+
+    <section class="card" id="pinjia">
+      <h2>拼假「请 N 休 M」</h2>
+      <p class="note" style="margin-top:0">输入剩余年假天数。对每个长假在法定放假前后接年假，优先<strong>连休最长</strong>，其次<strong>请最少工作日</strong>。调休上班日算工作日（需请假才休息）；周末本身休息。</p>
+      <div class="grid">
+        <div class="field">
+          <label for="leaveLeft">剩余年假（天）</label>
+          <input id="leaveLeft" type="number" min="0" max="30" step="1" value="5" inputmode="numeric" />
+          <div class="hint">建议 0–15；超过法定年假额度也可按你实际余额填写</div>
+        </div>
+      </div>
+      <div class="actions">
+        <button type="button" class="primary" id="btnPlan">计算拼假方案</button>
+        <button type="button" class="ghost" id="btnPlanReset">重置为 5 天</button>
+      </div>
+      <div class="plan-list" id="planList" aria-live="polite"></div>
+      <p class="result-disclaimer">拼假方案为日历推演，不代表单位一定批准；值班、轮班制、特殊岗位以单位制度为准。</p>
+    </section>
+
+    <section class="card" id="annual">
+      <h2>法定年假天数（工龄）</h2>
+      <p class="note" style="margin-top:0">依据《职工带薪年休假条例》：累计工作满 1 年不满 10 年 = 5 天；满 10 年不满 20 年 = 10 天；满 20 年 = 15 天。不满 1 年一般为 0（或按单位规定折算）。不包括机关事业单位寒暑假制等特殊情形。</p>
+      <div class="grid">
+        <div class="field">
+          <label for="workYears">累计工作年限（年）</label>
+          <input id="workYears" type="number" min="0" max="50" step="0.5" value="5" inputmode="decimal" />
+          <div class="hint">按参加工作起累计社会工龄粗算，具体以人事档案/社保缴费年限等单位口径为准</div>
+        </div>
+      </div>
+      <div class="actions">
+        <button type="button" class="primary" id="btnAnnual">查看法定年假</button>
+      </div>
+      <div id="annualResult" style="display:none">
+        <div class="highlight">
+          <div class="sub">法定带薪年休假（粗算）</div>
+          <div class="big" id="annualDays">—</div>
+          <div class="sub" id="annualHint"></div>
+        </div>
+      </div>
+      <p class="result-disclaimer">特殊工种、教师寒暑假、新入职当年折算、已享受寒暑假等情形可能不适用上述档位，请以条例与单位制度为准。</p>
+    </section>
+
+    <section class="card" id="unused">
+      <h2>未休年假应补 200% 粗算</h2>
+      <p class="note" style="margin-top:0">条例精神：单位确因工作需要不能安排年休假的，对职工应休未休的年休假天数，按日工资收入的 <strong>300%</strong> 支付年休假工资报酬（含正常工作期间已支付的 100%，即通常另付 <strong>200%</strong>）。</p>
+      <div class="grid">
+        <div class="field">
+          <label>日工资怎么填</label>
+          <div class="seg" role="group" aria-label="日工资输入方式">
+            <button type="button" class="active" data-wage="daily" id="modeDaily">直接填日工资</button>
+            <button type="button" data-wage="monthly" id="modeMonthly">月薪 ÷ 21.75</button>
+          </div>
+        </div>
+        <div class="field" id="dailyWrap">
+          <label for="dailyWage">日工资（元）</label>
+          <input id="dailyWage" type="number" min="0" step="0.01" value="300" inputmode="decimal" />
+        </div>
+        <div class="field" id="monthlyWrap" style="display:none">
+          <label for="monthlyWage">月薪（元）</label>
+          <input id="monthlyWage" type="number" min="0" step="0.01" value="6525" inputmode="decimal" />
+          <div class="hint">日工资 = 月薪 ÷ 21.75（常见计薪天数）</div>
+        </div>
+        <div class="field">
+          <label for="unusedDays">未休年假天数</label>
+          <input id="unusedDays" type="number" min="0" max="30" step="1" value="5" inputmode="numeric" />
+        </div>
+      </div>
+      <div class="actions">
+        <button type="button" class="primary" id="btnUnused">计算应补报酬</button>
+      </div>
+      <div id="unusedResult" style="display:none">
+        <div class="metrics">
+          <div class="metric">
+            <span class="k">折算日工资</span>
+            <span class="v" id="outDaily">—</span>
+          </div>
+          <div class="metric">
+            <span class="k">另补 200%</span>
+            <span class="v good" id="outExtra">—</span>
+          </div>
+          <div class="metric">
+            <span class="k">合计按 300% 口径</span>
+            <span class="v" id="outTotal">—</span>
+          </div>
+        </div>
+        <p class="note" id="unusedExplain"></p>
+      </div>
+      <p class="result-disclaimer">「另补 200%」与「合计 300%」是同一笔报酬的两种表述习惯。具体是否应发、基数如何认定，以当地劳动监察 / 仲裁口径及单位制度为准。</p>
+    </section>
+
+    <section class="card" id="faq">
+      <h2>常见问题</h2>
+      <details class="faq">
+        <summary>调休上班日要不要请年假？</summary>
+        <p>要。国办安排的「调休上班」日属于工作日；若希望那天休息并与长假连在一起，需占用年假（或单位其他假期）。本站拼假算法已把调休上班日计为工作日。</p>
+      </details>
+      <details class="faq">
+        <summary>「请 N 休 M」怎么理解？</summary>
+        <p>N 是你需要额外请的工作日天数（年假），M 是从连休第一天到最后一天的日历天数（含法定假、周末与所请年假）。优先推荐连休更长的方案；连休相同时选请假更少的。</p>
+      </details>
+      <details class="faq">
+        <summary>法定年假和公司年假制度冲突怎么办？</summary>
+        <p>法定标准是底线。单位制度可以更优，但不能低于条例强制标准（特殊法定除外情形除外）。争议请咨询当地劳动保障部门。</p>
+      </details>
+      <details class="faq">
+        <summary>未休年假一定能拿到 300% 吗？</summary>
+        <p>不一定。需满足条例规定的情形（如单位因工作需要未安排且跨年未休等），并排除劳动者本人原因书面放弃等情形。本页仅为公式粗算。</p>
+      </details>
+    </section>
+
+    <footer>
+      <p class="foot-warn">非官方工具。放假安排转述国办通知；年假/未休报酬测算仅供参考，以官方原文、劳动合同与当地规定为准。</p>
+      <nav class="site-nav" aria-label="站点导航">
+        <a href="/">首页</a>
+        <span aria-hidden="true">·</span>
+        <a href="about.html">关于</a>
+        <span aria-hidden="true">·</span>
+        <a href="privacy.html">隐私政策</a>
+        <span aria-hidden="true">·</span>
+        <a href="contact.html">联系我们</a>
+      </nav>
+      <p class="xlinks">
+        相关工具：
+        <a href="https://geshui.hpn6.com/">个税/养老金</a>
+        <a href="https://fangdai.hpn6.com/">房贷早偿</a>
+        <a href="https://jiaban.hpn6.com/">加班费</a>
+        <a href="https://shebao.hpn6.com/">五险一金</a>
+      </p>
+      <p>
+        来源：<a href="https://www.gov.cn/zhengce/content/202611/content_7085101.htm" rel="noopener noreferrer" target="_blank">国办发明电〔2026〕10号</a>
+        · pinjia.hpn6.com · 数据本地计算
+      </p>
+    </footer>
+  </div>
+
+  <script>
+  (function () {
+    "use strict";
+
+    var STORAGE_KEY = "pinjia_2027_stats_v1";
+    var WD = ["日", "一", "二", "三", "四", "五", "六"];
+
+    var HOLIDAYS = [
+      {
+        id: "yuandan",
+        name: "元旦",
+        start: "2027-01-01",
+        end: "2027-01-03",
+        days: 3,
+        makeups: [],
+        tip: "1月1日（星期五）至3日（星期日）放假，共3天。不调休上班。"
+      },
+      {
+        id: "chunjie",
+        name: "春节",
+        start: "2027-02-05",
+        end: "2027-02-13",
+        days: 9,
+        makeups: ["2027-01-31", "2027-02-14"],
+        tip: "2月5日（除夕、星期五）至13日（正月初八、星期六）放假，共9天。"
+      },
+      {
+        id: "qingming",
+        name: "清明节",
+        start: "2027-04-03",
+        end: "2027-04-05",
+        days: 3,
+        makeups: [],
+        tip: "4月3日（星期六）至5日（星期一）放假，共3天。"
+      },
+      {
+        id: "laodong",
+        name: "劳动节",
+        start: "2027-05-01",
+        end: "2027-05-05",
+        days: 5,
+        makeups: ["2027-05-08"],
+        tip: "5月1日（星期六）至5日（星期三）放假，共5天。"
+      },
+      {
+        id: "duanwu",
+        name: "端午节",
+        start: "2027-06-09",
+        end: "2027-06-09",
+        days: 1,
+        makeups: [],
+        tip: "6月9日（星期三）放假，共1天。"
+      },
+      {
+        id: "zhongqiu",
+        name: "中秋节",
+        start: "2027-09-15",
+        end: "2027-09-15",
+        days: 1,
+        makeups: [],
+        tip: "9月15日（星期三）放假，共1天。"
+      },
+      {
+        id: "guoqing",
+        name: "国庆节",
+        start: "2027-10-01",
+        end: "2027-10-07",
+        days: 7,
+        makeups: ["2027-09-26", "2027-10-09"],
+        tip: "10月1日（星期五）至7日（星期四）放假，共7天。"
+      }
+    ];
+
+    function parseDate(s) {
+      var p = s.split("-").map(Number);
+      return new Date(p[0], p[1] - 1, p[2]);
+    }
+    function fmt(d) {
+      return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+    }
+    function addDays(d, n) {
+      var x = new Date(d.getFullYear(), d.getMonth(), d.getDate() + n);
+      return x;
+    }
+    function wdLabel(s) {
+      return WD[parseDate(s).getDay()];
+    }
+    function rangeLabel(start, end) {
+      if (start === end) return start + "（周" + wdLabel(start) + "）";
+      return start + "（周" + wdLabel(start) + "）至 " + end + "（周" + wdLabel(end) + "）";
+    }
+    function money(n) {
+      if (!isFinite(n)) return "—";
+      return n.toLocaleString("zh-CN", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " 元";
+    }
+
+    var MAKEUPS = new Set();
+    var HOLIDAY_RESTS = new Set();
+    HOLIDAYS.forEach(function (h) {
+      h.makeups.forEach(function (m) { MAKEUPS.add(m); });
+      var d = parseDate(h.start);
+      var end = parseDate(h.end);
+      while (d <= end) {
+        HOLIDAY_RESTS.add(fmt(d));
+        d = addDays(d, 1);
+      }
+    });
+
+    function isWeekend(d) {
+      var x = d.getDay();
+      return x === 0 || x === 6;
+    }
+    function isWorkday(d, ds) {
+      if (HOLIDAY_RESTS.has(ds)) return false;
+      if (MAKEUPS.has(ds)) return true;
+      return !isWeekend(d);
+    }
+    function isRestDay(ds, d, leaveDates) {
+      if (HOLIDAY_RESTS.has(ds)) return true;
+      if (leaveDates.has(ds)) return true;
+      if (MAKEUPS.has(ds)) return false;
+      if (isWeekend(d)) return true;
+      return false;
+    }
+
+    function simulate(hol, beforeLeave, afterLeave) {
+      var leaveDates = new Set();
+      var d = addDays(parseDate(hol.start), -1);
+      var need = beforeLeave;
+      var guard = 0;
+      while (need > 0 && guard++ < 90) {
+        var ds = fmt(d);
+        if (isWorkday(d, ds)) {
+          leaveDates.add(ds);
+          need--;
+        }
+        d = addDays(d, -1);
+      }
+      d = addDays(parseDate(hol.end), 1);
+      need = afterLeave;
+      guard = 0;
+      while (need > 0 && guard++ < 90) {
+        ds = fmt(d);
+        if (isWorkday(d, ds)) {
+          leaveDates.add(ds);
+          need--;
+        }
+        d = addDays(d, 1);
+      }
+
+      var start = parseDate(hol.start);
+      var end = parseDate(hol.end);
+      while (true) {
+        var prev = addDays(start, -1);
+        if (isRestDay(fmt(prev), prev, leaveDates)) start = prev;
+        else break;
+      }
+      while (true) {
+        var next = addDays(end, 1);
+        if (isRestDay(fmt(next), next, leaveDates)) end = next;
+        else break;
+      }
+      var rest = Math.round((end - start) / 86400000) + 1;
+      var leaves = Array.from(leaveDates).sort();
+      return {
+        leave: beforeLeave + afterLeave,
+        before: beforeLeave,
+        after: afterLeave,
+        rest: rest,
+        start: fmt(start),
+        end: fmt(end),
+        leaveDates: leaves
+      };
+    }
+
+    function bestPlan(hol, budget) {
+      var N = Math.max(0, Math.min(30, Math.floor(budget)));
+      var best = null;
+      for (var before = 0; before <= N; before++) {
+        for (var after = 0; after <= N - before; after++) {
+          var r = simulate(hol, before, after);
+          if (
+            !best ||
+            r.rest > best.rest ||
+            (r.rest === best.rest && r.leave < best.leave) ||
+            (r.rest === best.rest && r.leave === best.leave && Math.abs(r.before - r.after) < Math.abs(best.before - best.after))
+          ) {
+            best = r;
+          }
+        }
+      }
+      return best;
+    }
+
+    function loadStats() {
+      try {
+        var raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return { done: 0 };
+        var o = JSON.parse(raw);
+        return { done: Number(o.done) || 0 };
+      } catch (e) {
+        return { done: 0 };
+      }
+    }
+    function saveStats(s) {
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); } catch (e) {}
+    }
+    function bumpDone() {
+      var s = loadStats();
+      s.done += 1;
+      saveStats(s);
+      document.getElementById("statDone").textContent = String(s.done);
+    }
+
+    function renderHolidayCards() {
+      var root = document.getElementById("holidayCards");
+      root.innerHTML = HOLIDAYS.map(function (h) {
+        var makeupHtml = "";
+        if (h.makeups.length) {
+          makeupHtml = '<p class="makeup">调休上班：' + h.makeups.map(function (m) {
+            return m + "（周" + wdLabel(m) + "）";
+          }).join("、") + "</p>";
+        } else {
+          makeupHtml = '<p class="note">不安排调休上班</p>';
+        }
+        return (
+          '<article class="hcard">' +
+            '<div class="name">' + h.name + "</div>" +
+            '<p class="range">' + rangeLabel(h.start, h.end) + "</p>" +
+            '<span class="days">放假 ' + h.days + " 天</span>" +
+            makeupHtml +
+            '<p class="note">' + h.tip + "</p>" +
+          "</article>"
+        );
+      }).join("");
+    }
+
+    function renderPlans(doBump) {
+      var raw = Number(document.getElementById("leaveLeft").value);
+      if (!isFinite(raw) || raw < 0) raw = 0;
+      var N = Math.min(30, Math.floor(raw));
+      document.getElementById("leaveLeft").value = String(N);
+
+      var html = HOLIDAYS.map(function (h) {
+        var base = bestPlan(h, 0);
+        var plan = bestPlan(h, N);
+        var leaveTxt = plan.leaveDates.length
+          ? "建议请假日：" + plan.leaveDates.join("、")
+          : "无需额外年假即可连休";
+        var attach = plan.leave === 0
+          ? "不请年假"
+          : ("前接 " + plan.before + " 天、后接 " + plan.after + " 天年假");
+        return (
+          '<article class="plan-item">' +
+            '<div class="top">' +
+              '<span class="name">' + h.name + "</span>" +
+              '<span class="badge">请 ' + plan.leave + " → 连休 " + plan.rest + " 天</span>" +
+            "</div>" +
+            '<div class="dates">连休区间：' + rangeLabel(plan.start, plan.end) + "</div>" +
+            '<div class="detail">' + attach + " · 法定放假 " + h.days + " 天（不请假基准连休 " + base.rest + " 天）</div>" +
+            '<div class="detail">' + leaveTxt + "</div>" +
+          "</article>"
+        );
+      }).join("");
+      document.getElementById("planList").innerHTML = html;
+      if (doBump) bumpDone();
+    }
+
+    function calcAnnual() {
+      var y = Number(document.getElementById("workYears").value);
+      if (!isFinite(y) || y < 0) y = 0;
+      var days = 0;
+      var hint = "";
+      if (y < 1) {
+        days = 0;
+        hint = "累计工作不满 1 年：条例一般不享有年休假（或按单位对新职工的折算规则）。";
+      } else if (y < 10) {
+        days = 5;
+        hint = "满 1 年不满 10 年 → 5 天。";
+      } else if (y < 20) {
+        days = 10;
+        hint = "满 10 年不满 20 年 → 10 天。";
+      } else {
+        days = 15;
+        hint = "满 20 年 → 15 天。";
+      }
+      document.getElementById("annualResult").style.display = "block";
+      document.getElementById("annualDays").textContent = days + " 天";
+      document.getElementById("annualHint").textContent = hint;
+      bumpDone();
+    }
+
+    var wageMode = "daily";
+    function setWageMode(mode) {
+      wageMode = mode;
+      document.getElementById("modeDaily").classList.toggle("active", mode === "daily");
+      document.getElementById("modeMonthly").classList.toggle("active", mode === "monthly");
+      document.getElementById("dailyWrap").style.display = mode === "daily" ? "" : "none";
+      document.getElementById("monthlyWrap").style.display = mode === "monthly" ? "" : "none";
+    }
+
+    function calcUnused() {
+      var daily;
+      if (wageMode === "monthly") {
+        var monthly = Number(document.getElementById("monthlyWage").value);
+        if (!isFinite(monthly) || monthly < 0) monthly = 0;
+        daily = monthly / 21.75;
+      } else {
+        daily = Number(document.getElementById("dailyWage").value);
+        if (!isFinite(daily) || daily < 0) daily = 0;
+      }
+      var days = Number(document.getElementById("unusedDays").value);
+      if (!isFinite(days) || days < 0) days = 0;
+      days = Math.floor(days);
+
+      var extra = daily * 2 * days;
+      var total = daily * 3 * days;
+
+      document.getElementById("unusedResult").style.display = "block";
+      document.getElementById("outDaily").textContent = money(daily);
+      document.getElementById("outExtra").textContent = money(extra);
+      document.getElementById("outTotal").textContent = money(total);
+      document.getElementById("unusedExplain").textContent =
+        "未休 " + days + " 天：另补 200% = 日工资 × 2 × " + days +
+        "；合计按 300% 口径 = 日工资 × 3 × " + days +
+        "（其中已含正常工作期间支付的 100%）。";
+      bumpDone();
+    }
+
+    function init() {
+      document.getElementById("statDone").textContent = String(loadStats().done);
+      renderHolidayCards();
+      renderPlans(false);
+
+      document.getElementById("btnPlan").addEventListener("click", function () { renderPlans(true); });
+      document.getElementById("btnPlanReset").addEventListener("click", function () {
+        document.getElementById("leaveLeft").value = "5";
+        renderPlans(true);
+      });
+      document.getElementById("leaveLeft").addEventListener("change", function () { renderPlans(true); });
+
+      document.getElementById("btnAnnual").addEventListener("click", calcAnnual);
+      document.getElementById("workYears").addEventListener("change", calcAnnual);
+
+      document.getElementById("modeDaily").addEventListener("click", function () { setWageMode("daily"); });
+      document.getElementById("modeMonthly").addEventListener("click", function () { setWageMode("monthly"); });
+      document.getElementById("btnUnused").addEventListener("click", calcUnused);
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", init);
+    } else {
+      init();
+    }
+  })();
+  </script>
+</body>
+</html>
