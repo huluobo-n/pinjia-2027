@@ -210,6 +210,7 @@
     }
     .seg button.active { background: #eff6ff; color: var(--primary); font-weight: 700; }
   </style>
+  <script src="https://hpn6.com/t/hpn6-stats.js" data-site="pinjia" defer></script>
 </head>
 <body>
   <div class="wrap">
@@ -594,6 +595,7 @@
       s.done += 1;
       saveStats(s);
       document.getElementById("statDone").textContent = String(s.done);
+      if (window.hpn6track) window.hpn6track("calc");
     }
 
     function renderHolidayCards() {
